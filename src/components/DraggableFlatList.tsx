@@ -265,7 +265,6 @@ function DraggableFlatListInner<T>(props: DraggableFlatListProps<T>) {
 
   const panGesture = Gesture.Pan()
     .onBegin((evt) => {
-      touchTranslate.value = 0  
       gestureDisabled.value = disabled.value;
       if (gestureDisabled.value) return;
       panGestureState.value = evt.state;
@@ -290,7 +289,11 @@ function DraggableFlatListInner<T>(props: DraggableFlatListProps<T>) {
       panGestureState.value = evt.state;
 
       // Only call onDragEnd if actually dragging a cell
-      if (activeIndexAnim.value === -1 || disabled.value) return;
+      if (activeIndexAnim.value === -1 || disabled.value) {
+        touchTranslate.value = 0
+        return 
+      } 
+      
       disabled.value = true;
       runOnJS(onRelease)(activeIndexAnim.value);
       const springTo = placeholderOffset.value - activeCellOffset.value;
