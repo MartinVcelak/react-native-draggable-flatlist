@@ -265,6 +265,7 @@ function DraggableFlatListInner<T>(props: DraggableFlatListProps<T>) {
 
   const panGesture = Gesture.Pan()
     .onBegin((evt) => {
+      touchTranslate.value = 0  
       gestureDisabled.value = disabled.value;
       if (gestureDisabled.value) return;
       panGestureState.value = evt.state;
